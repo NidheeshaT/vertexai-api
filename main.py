@@ -1,12 +1,47 @@
-from vertexai.preview.language_models import ChatModel
+from flask import Flask,request
+from vertexai.preview.language_models import ChatModel,ChatSession
 import dotenv
-import os
+import json
 dotenv.load_dotenv()
 
-print(os.environ['GOOGLE_APPLICATION_CREDENTIALS'])
+app = Flask(__name__)
+app.config["DEBUG"] = True
 
-chat_model=ChatModel.from_pretrained('chat-bison@001')
+support_context=""
 
-chat=chat_model.start_chat()
-response=chat.send_message('Hello hows the weather today?')
-print(response)
+@app.post("/query")
+def query():
+    req_data=request.json #message,context,history:list of chat messages
+
+    chat=ChatSession(model=ChatModel.from_pretrained("chat-bison@001")) # context,history
+    response=chat.send_message("Hello")#message should be applied here
+    print(response)
+    return f"{response}"
+
+@app.post("/support")
+def support():
+    req_data=request.json #message,context,history:list of chat messages
+
+    chat=ChatSession(model=ChatModel.from_pretrained("chat-bison@001")) # context,history
+    response=chat.send_message("Hello")#message should be applied here
+    print(response)
+    return f"{response}"
+
+@app.post("/tts")
+def textToSpeech():
+    chat=ChatSession(model=ChatModel.from_pretrained("chat-bison@001"),)
+    print(chat)
+    response=chat.send_message("Hello")
+    print(response)
+    return f"{response}"
+
+@app.post("/stt")
+def speechToText():
+    chat=ChatSession(model=ChatModel.from_pretrained("chat-bison@001"),)
+    print(chat)
+    response=chat.send_message("Hello")
+    print(response)
+    return f"{response}"
+
+if __name__=='__main__':
+   app.run()
