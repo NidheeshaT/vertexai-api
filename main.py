@@ -10,7 +10,7 @@ if not os.path.exists("./secret.json"):
             f.write(os.environ.get("CREDENTIALS"))
 
 app = Flask(__name__)
-app.config["DEBUG"] = True
+app.config["DEBUG"] = False if os.environ.get("PRODUCTION","False")=="True" else True
 
 support_context="Imagine you are an AI-powered personal healthcare advisor with the name Aido and mental health support chatbot. A user has just reached out to you seeking guidance and support. Write a response that empathetically addresses their concerns, provides accurate healthcare information, and offers practical advice to improve their overall well-being. Keep in mind the importance of being understanding, non-judgmental, and respectful throughout the conversation."
 bison_model=ChatModel.from_pretrained("chat-bison@001")
