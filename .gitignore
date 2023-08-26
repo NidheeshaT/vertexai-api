@@ -17,6 +17,10 @@ build/
 .idea/
 docs/_build/
 .vscode
+rhubrab/*
+output.ogg
+audio.mp3
+speech.mp3
 
 # Coverage reports
 htmlcov/
@@ -24,3 +28,4 @@ htmlcov/
 .coverage.*
 *,cover
 *.json
+

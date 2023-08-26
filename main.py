@@ -56,7 +56,7 @@ def convertToSpeech():
         audio_file.save("./audio.mp3")
         sound = AudioSegment.from_mp3("./audio.mp3")
         sound.export("./output.ogg", format="ogg")
-        result = subprocess.run(["./rhubrab/Rhubarb-Lip-Sync-1.13.0-Linux/rhubarb","-f","json","./output.ogg"] , capture_output=True)
+        result = subprocess.run(["rhubarb","-f","json","./output.ogg"] , capture_output=True)
         return f"{result.stdout.decode('utf-8')}"
     except Exception as e:
         print(e)
