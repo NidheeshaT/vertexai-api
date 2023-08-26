@@ -1,6 +1,7 @@
-from flask import Flask,request,make_response
+from flask import Flask,request,make_response, jsonify
 from vertexai.preview.language_models import ChatModel,ChatSession,ChatMessage
 import dotenv
+from flask_cors import CORS
 import json,os
 dotenv.load_dotenv()
 
@@ -10,6 +11,7 @@ if not os.path.exists("./secret.json"):
             f.write(os.environ.get("CREDENTIALS"))
 
 app = Flask(__name__)
+CORS(app)
 app.config["DEBUG"] = False if os.environ.get("PRODUCTION","False")=="True" else True
 
 support_context="Imagine you are an AI-powered personal healthcare advisor with the name Aido and mental health support chatbot. A user has just reached out to you seeking guidance and support. Write a response that empathetically addresses their concerns, provides accurate healthcare information, and offers practical advice to improve their overall well-being. Keep in mind the importance of being understanding, non-judgmental, and respectful throughout the conversation."
@@ -47,5 +49,6 @@ def support():
         return f"{response}"
     except Exception as e:
         return make_response("Server error",500)
+
 if __name__=='__main__':
-   app.run()
+   app.run(debug=True, port=8001)
