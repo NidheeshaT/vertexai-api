@@ -2,8 +2,9 @@ from flask import Flask,request,make_response
 from vertexai.preview.language_models import ChatModel,ChatSession,ChatMessage
 import dotenv
 import json,os
+from pydub import AudioSegment
 dotenv.load_dotenv()
-
+import subprocess
 if not os.path.exists("./secret.json"):
     if os.environ.get("CREDENTIALS"):
         with open("secret.json","w") as f:
@@ -47,5 +48,20 @@ def support():
         return f"{response}"
     except Exception as e:
         return make_response("Server error",500)
+
+@app.post("/convertToSpeech")
+def convertToSpeech():
+    try:
+        audio_file = request.files['audio']
+        audio_file.save("./audio.mp3")
+        sound = AudioSegment.from_mp3("./audio.mp3")
+        sound.export("./output.ogg", format="ogg")
+        result = subprocess.run(["./rhubrab/Rhubarb-Lip-Sync-1.13.0-Linux/rhubarb","-f","json","./output.ogg"] , capture_output=True)
+        return f"{result.stdout.decode('utf-8')}"
+    except Exception as e:
+        print(e)
+        return make_response(f"{e}",500)
+
+    
 if __name__=='__main__':
    app.run()
