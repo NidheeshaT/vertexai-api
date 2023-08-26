@@ -8,6 +8,7 @@ ffmpeg==1.4
 ffmpeg-python==0.2.0
 ffprobe==0.5
 Flask==2.3.3
+Flask-Cors==4.0.0
 future==0.18.3
 google-api-core==2.11.1
 google-auth==2.22.0
