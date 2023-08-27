@@ -36,7 +36,7 @@ Access the API at: https://vertexai-api-ar2ndw3szq-uc.a.run.app
     pip3 install -r requirements.txt
     ```
 
-4. Generate a Google Cloud API key and save it in a file named CREDENTIALS in env.
+4. Generate a Google Service Account config file and save it in a file named CREDENTIALS in env.
 
 5. Then, run the development server:
     ```bash:
