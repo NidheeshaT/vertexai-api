@@ -23,7 +23,7 @@ def palm(message:str,context:str,history:list):
     for i,h in enumerate(history):
         if "content" in h and "author" in h:
             valid_history.append(ChatMessage(h["content"],h['author']))
-    chat=ChatSession(model=bison_model,context=context,message_history=valid_history)
+    chat=ChatSession(model=bison_model,context=context,message_history=valid_history,temperature=0.94)
     response=chat.send_message(message)
     return response
 
