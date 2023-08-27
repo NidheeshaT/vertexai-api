@@ -6,10 +6,16 @@ import json,os
 from pydub import AudioSegment
 dotenv.load_dotenv()
 import subprocess
+from google.cloud import translate
+
+PARENT = "projects/"
 if not os.path.exists("./secret.json"):
     if os.environ.get("CREDENTIALS"):
         with open("secret.json","w") as f:
             f.write(os.environ.get("CREDENTIALS"))
+
+if os.environ.get("CREDENTIALS"):
+        PARENT+=json.loads(os.environ.get("CREDENTIALS"))["project_id"]
 
 app = Flask(__name__)
 CORS(app)
@@ -64,6 +70,24 @@ def convertToSpeech():
         print(e)
         return make_response(f"{e}",500)
 
+@app.post("/translate")
+def translate1():
+    try:
+        client = translate.TranslationServiceClient()
+        req_data=request.json
+        message=req_data.get("message")
+        language=req_data.get("language","en-IN")
+
+        response = client.translate_text(
+            parent=PARENT,
+            contents=[message],
+            target_language_code=language,
+        )
+        return f"{response.translations[0].translated_text}"
+    
+    except Exception as e:
+        print(e)
+        return make_response(f"{e}",500)
     
 if __name__=='__main__':
    app.run(debug=True, port=8001)
