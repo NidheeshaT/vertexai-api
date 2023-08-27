@@ -8,14 +8,13 @@ dotenv.load_dotenv()
 import subprocess
 from google.cloud import translate
 
-PARENT = "projects/"
+if os.environ.get("PROJECT_ID"):
+    PARENT = f"projects/{os.environ.get('PROJECT_ID')}"
 if not os.path.exists("./secret.json"):
     if os.environ.get("CREDENTIALS"):
         with open("secret.json","w") as f:
             f.write(os.environ.get("CREDENTIALS"))
 
-if os.environ.get("CREDENTIALS"):
-        PARENT+=json.loads(os.environ.get("CREDENTIALS"))["project_id"]
 
 app = Flask(__name__)
 CORS(app)
