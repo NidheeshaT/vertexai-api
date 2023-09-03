@@ -22,5 +22,6 @@ jobs:
         with:
           appSourcePath: ${{ github.workspace }}
           acrName: aidorepo
+          imageToBuild: aidorepo.azurecr.io/vertexapi:latest
           containerAppName: aido
           resourceGroup: Aido
