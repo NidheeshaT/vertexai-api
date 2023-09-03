@@ -21,6 +21,6 @@ jobs:
         uses: azure/container-apps-deploy-action@v1
         with:
           appSourcePath: ${{ github.workspace }}
-          acrName: aido-repo
+          acrName: aidorepo
           containerAppName: aido
           resourceGroup: Aido
