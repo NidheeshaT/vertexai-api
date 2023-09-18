@@ -74,6 +74,8 @@ def translate1():
         message=req_data.get("message","")
         language=req_data.get("language","en-IN")
 
+        language=language.split("-")[0]
+
         response=translator.translate(message,dest=language).text
         return response
     except Exception as e:
