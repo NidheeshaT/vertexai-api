@@ -39,7 +39,7 @@ def query():
         response=palmCall(message,context,history)
         return f"{response}"
     except Exception as e:
-        return makexresponse("Server error",500)
+        return make_response("Server error",500)
 
 @app.post("/support")
 def support():
