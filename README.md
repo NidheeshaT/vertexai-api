@@ -1,7 +1,7 @@
 # Vertex AI API
 A microservice that provides a REST API for Vertex AI. This microservice is built using Flask and deployed on Google Cloud Run.
 
-Access the API at: https://vertexai-api-ar2ndw3szq-uc.a.run.app
+Access the API at: https://vertex-api.icywater-c883e88b.centralus.azurecontainerapps.io
 
 ## Tech used:
 - [Flask](https://flask.palletsprojects.com/en/2.0.x/)
